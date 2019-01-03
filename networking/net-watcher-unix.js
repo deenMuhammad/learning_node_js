@@ -18,7 +18,4 @@ net.createServer(connection=>{
         console.log("Subscriber Disconnected");
         watcher.close();
     })
-    connection.on('error', ()=>{
-        console.log('Connection Error');
-    })
 }).listen('/tmp/watcher.sock', ()=>{console.log("Listening for Subscribers...")});

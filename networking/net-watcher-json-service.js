@@ -9,13 +9,13 @@ if(!filename){
 }
 net.createServer(connection=>{
     console.log("Subscriber Connected");
-    connection.write(JSON.stringify({type: 'watching', file: filename}));
+    connection.write(JSON.stringify({type: 'watching', filename: filename})+'\n');
 
     const watcher = fs.watch(filename, ()=>{
-        connection.write(JSON.stringify({type: 'changed', timestamp: Date.now()}+'\n'));
+        connection.write(JSON.stringify({type: 'changed', timestamp: Date.now()})+'\n');
     });
     connection.on('close', ()=>{
         console.log("Subscriber Disconnected");
         watcher.close();
     })
-}).listen('/tmp/watcher.sock', ()=>{console.log("Listening for Subscribers...")});
+}).listen(60400, ()=>{console.log("Listening for Subscribers...")});
